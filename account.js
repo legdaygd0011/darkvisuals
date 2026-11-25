@@ -292,6 +292,7 @@
           <button class="mini" data-days="7">+7</button>
           <input class="mini-input" type="number" min="1" max="3650" placeholder="дн." aria-label="Своё число дней">
           <button class="mini" data-days="custom">Выдать</button>
+          <button class="mini" data-devices="1" title="Сбросить привязку к устройствам">Устройства</button>
           ${active && !u.is_admin ? '<button class="mini danger" data-revoke="1">Забрать</button>' : ''}
         </div></td>
       </tr>`;
@@ -310,6 +311,12 @@
         const { error } = await sb.rpc('admin_revoke', { target: id });
         if (error) throw error;
         msg.textContent = `Подписка ${name} снята`;
+      } else if (b.dataset.devices) {
+        if (!confirm(`Сбросить привязку к устройствам у ${name}? Пригодится, если человек сменил ПК или телефон.`)) return;
+        const { error } = await sb.rpc('admin_clear_devices', { target: id });
+        if (error) throw error;
+        msg.textContent = `Устройства ${name} сброшены, лимит свободен`;
+        return;
       } else {
         const days = b.dataset.days === 'custom' ? parseInt(tr.querySelector('.mini-input').value, 10) : parseInt(b.dataset.days, 10);
         if (!(days >= 1 && days <= 3650)) { msg.textContent = 'Укажи от 1 до 3650 дней'; return; }
