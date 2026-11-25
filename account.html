@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Аккаунт darkvisuals</title>
+  <meta name="description" content="Вход, регистрация и подписка darkvisuals.">
+  <meta name="theme-color" content="#08090C">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="account.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="./" aria-label="darkvisuals, на главную">
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5 8.6 8.6 0 1 0 20.5 14.6Z"/></svg>
+        darkvisuals
+      </a>
+      <nav class="links" aria-label="Разделы">
+        <a href="./#compare">До и после</a>
+        <a href="./#features">Функции</a>
+        <a href="./#download">Скачать</a>
+      </nav>
+      <button class="btn btn-small btn-quiet" id="signout" hidden>Выйти</button>
+    </div>
+  </header>
+
+  <main class="wrap acc">
+    <!-- Loading -->
+    <section id="view-loading" class="acc-center">
+      <div class="spinner" aria-label="Загрузка"></div>
+    </section>
+
+    <!-- Server not configured yet -->
+    <section id="view-offline" class="acc-center" hidden>
+      <div class="card narrow-card">
+        <h1 class="acc-title">Аккаунты скоро</h1>
+        <p class="muted" id="offline-text">Сервер аккаунтов ещё не подключён. Загляни позже.</p>
+      </div>
+    </section>
+
+    <!-- Sign in / sign up -->
+    <section id="view-auth" class="acc-center" hidden>
+      <div class="card narrow-card">
+        <h1 class="acc-title">Аккаунт darkvisuals</h1>
+        <p class="muted">Один аккаунт для сайта, лаунчера на ПК и телефона. Подписка и настройки визуала синхронизируются.</p>
+        <div class="seg" role="tablist" aria-label="Вход или регистрация">
+          <button role="tab" aria-selected="true" data-mode="in">Вход</button>
+          <button role="tab" aria-selected="false" data-mode="up">Регистрация</button>
+        </div>
+        <form id="auth-form" novalidate>
+          <label class="field" id="f-name" hidden>
+            <span>Ник</span>
+            <input name="username" autocomplete="username" maxlength="16" placeholder="3–16 символов: буквы, цифры, _">
+          </label>
+          <label class="field">
+            <span>Почта</span>
+            <input name="email" type="email" autocomplete="email" required placeholder="you@mail.ru">
+          </label>
+          <label class="field">
+            <span>Пароль</span>
+            <input name="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Не меньше 6 символов">
+          </label>
+          <p class="form-error" id="auth-error" role="alert"></p>
+          <button class="btn btn-primary btn-wide" type="submit" id="auth-submit">Войти</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="view-dash" hidden>
+      <div class="dash-head">
+        <div class="avatar" id="d-avatar">D</div>
+        <div>
+          <h1 class="acc-title"><span id="d-name">—</span> <span class="badge-admin" id="d-admin" hidden>admin</span></h1>
+          <p class="muted" id="d-email"></p>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <article class="card sub-card" id="sub-card">
+          <p class="eyebrow" style="margin:0 0 12px">Подписка</p>
+          <div class="sub-state">
+            <span class="pill" id="sub-pill">Нет подписки</span>
+            <span class="muted" id="sub-detail"></span>
+          </div>
+          <div class="price"><b>50 ₽</b><span>за 30 дней</span></div>
+          <button class="btn btn-primary btn-wide" id="pay">Оплатить картой или СБП</button>
+          <p class="fine">Оплата на защищённой странице ЮKassa. Дни добавляются к оставшимся.</p>
+          <p class="form-error" id="pay-error" role="alert"></p>
+        </article>
+        <article class="card">
+          <p class="eyebrow" style="margin:0 0 12px">Как играть</p>
+          <ol class="steps big">
+            <li><a href="./#download">Скачай лаунчер</a> для ПК или Android.</li>
+            <li>Войди в нём под этим аккаунтом darkvisuals.</li>
+            <li>Нажми «Играть». Настройки визуала сохранятся в аккаунте и появятся на другом устройстве.</li>
+          </ol>
+          <div class="history" id="history" hidden>
+            <p class="eyebrow" style="margin:22px 0 8px">Платежи</p>
+            <ul id="history-list"></ul>
+          </div>
+        </article>
+      </div>
+
+      <!-- Admin -->
+      <section class="admin" id="admin" hidden>
+        <div class="admin-head">
+          <h2>Админ-панель <span class="badge-admin">admin</span></h2>
+        </div>
+        <div class="tiles">
+          <div class="tile"><b id="s-users">0</b><span>пользователей</span></div>
+          <div class="tile"><b id="s-active">0</b><span>с подпиской</span></div>
+          <div class="tile"><b id="s-payments">0</b><span>оплат</span></div>
+          <div class="tile"><b id="s-revenue">0 ₽</b><span>выручка</span></div>
+        </div>
+        <div class="admin-tools">
+          <input id="q" class="search" placeholder="Поиск по нику или почте" aria-label="Поиск пользователей">
+        </div>
+        <div class="table-wrap">
+          <table class="users">
+            <thead><tr><th>Ник</th><th>Почта</th><th>Подписка</th><th>Оплачено</th><th class="right">Выдать</th></tr></thead>
+            <tbody id="users"></tbody>
+          </table>
+        </div>
+        <p class="fine" id="admin-msg" role="status"></p>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+  <script src="account.js" defer></script>
+</body>
+</html>

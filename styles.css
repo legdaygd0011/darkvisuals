@@ -113,6 +113,10 @@ kbd {
 .btn-ghost:hover { background: var(--raised); }
 .btn-small { height: 38px; padding: 0 16px; font-size: 14px; background: var(--text); color: var(--deep); border-radius: 10px; }
 .btn-wide { width: 100%; }
+.btn-login { background: var(--card); color: var(--text); border: 1px solid var(--line-hi); }
+.btn-login:hover { background: var(--raised); }
+.links + .btn-login { margin-left: 8px; }
+.sub a { color: var(--accent); }
 
 /* ------------------------------------------------------------ hero */
 .hero { position: relative; padding: 72px 0 40px; isolation: isolate; }
@@ -314,7 +318,7 @@ h2 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.1; }
   .models { grid-template-columns: repeat(3, 1fr); }
   .launcher-grid { grid-template-columns: 1fr; }
   .links { display: none; }
-  .top-row .btn-small { margin-left: auto; }
+  .top-row .btn-login { margin-left: auto; }
 }
 @media (max-width: 640px) {
   .hero { padding-top: 40px; }
