@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>darkvisuals: визуалы для Minecraft 1.21.4</title>
+  <meta name="description" content="Визуалы для Minecraft 1.21.4 на Fabric: Target ESP, свой HUD, 3D-модели, небо и погода. Можно включать на FunTime и ReallyWorld. Скачать на ПК и Android.">
+  <meta name="theme-color" content="#08090C">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/geist_regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#" aria-label="darkvisuals, наверх">
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5 8.6 8.6 0 1 0 20.5 14.6Z"/></svg>
+        darkvisuals
+      </a>
+      <nav class="links" aria-label="Разделы">
+        <a href="#compare">До и после</a>
+        <a href="#features">Функции</a>
+        <a href="#models">3D-модели</a>
+        <a href="#launchers">Лаунчеры</a>
+        <a href="#faq">Вопросы</a>
+      </nav>
+      <a class="btn btn-small" href="#download">Скачать</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot"></span>Minecraft 1.21.4 · Fabric · версия 1.0.0</p>
+          <h1>Визуалы, которые можно включать на серверах</h1>
+          <p class="lead">Кольцо вокруг цели, свой HUD, 3D-модели персонажа, северное сияние и помощники для FunTime. Только то, что видишь ты: ничего сквозь стены и никакой помощи в бою.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="#download" data-platform="pc">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+              Скачать для ПК
+            </a>
+            <a class="btn btn-ghost" href="#download" data-platform="android">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
+              Скачать для Android
+            </a>
+          </div>
+          <p class="hint">Меню в игре открывается на <kbd>Right Shift</kbd>, на телефоне кнопкой «Визуал»</p>
+        </div>
+        <figure class="hero-shot">
+          <div class="shot-frame">
+            <img src="img/fight_on.webp" alt="Бой с darkvisuals: кольцо вокруг цели, карточка цели, свой хотбар" width="1600" height="900">
+          </div>
+          <figcaption>
+            <span class="tag">Target ESP</span><span class="tag">Target HUD</span><span class="tag">Hit Particles</span><span class="tag">Свой хотбар</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="wrap stats">
+        <div><b>67</b><span>функций</span></div>
+        <div><b>5</b><span>3D-моделей</span></div>
+        <div><b>0</b><span>читов</span></div>
+        <div><b>2</b><span>платформы</span></div>
+      </div>
+    </section>
+
+    <!-- Before / after -->
+    <section id="compare" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">До и после</p>
+          <h2>Тот же кадр, без визуала и с ним</h2>
+          <p class="sub">Тяни ползунок. Слева обычный Minecraft, справа darkvisuals.</p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Сцены">
+          <button role="tab" aria-selected="true" data-scene="fight">Бой</button>
+          <button role="tab" aria-selected="false" data-scene="hud">Интерфейс</button>
+          <button role="tab" aria-selected="false" data-scene="sky">Небо</button>
+          <button role="tab" aria-selected="false" data-scene="player">Персонаж</button>
+          <button role="tab" aria-selected="false" data-scene="menu">Главное меню</button>
+        </div>
+        <div class="compare" id="compare-box" style="--pos: 50%">
+          <img class="cmp-on" src="img/fight_on.webp" alt="С darkvisuals" width="1600" height="900">
+          <img class="cmp-off" src="img/fight_off.webp" alt="Без визуала" width="1600" height="900">
+          <span class="cmp-label left">Без визуала</span>
+          <span class="cmp-label right">darkvisuals</span>
+          <div class="cmp-handle" role="slider" tabindex="0" aria-label="Граница сравнения" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <span class="grip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+          </div>
+        </div>
+        <p class="cmp-note" id="cmp-note">Кольцо вокруг цели, частицы удара, карточка цели с бронёй и дистанцией, свой хотбар и полосы здоровья.</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Функции</p>
+          <h2>67 функций в пяти разделах</h2>
+          <p class="sub">Каждую можно включить, выключить и настроить в меню. Всё сохраняется само.</p>
+        </div>
+        <div class="cats">
+          <article class="cat">
+            <div class="cat-top"><h3>Render</h3><span class="count">20</span></div>
+            <p>Эффекты в мире: то, как выглядят бой, удары и ты сам.</p>
+            <ul><li>Target ESP</li><li>China Hat</li><li>Trails</li><li>Jump Circles</li><li>Hit Particles</li><li>Damage Numbers</li><li>Kill Effects</li><li>Custom Swords</li><li>Custom Player</li><li>Swing Animation</li><li>Cosmetics</li><li>Pet</li></ul>
+          </article>
+          <article class="cat">
+            <div class="cat-top"><h3>Interface</h3><span class="count">27</span></div>
+            <p>Свой HUD с редактором: перетаскивай элементы, меняй масштаб, выбирай готовые раскладки.</p>
+            <ul><li>Target HUD</li><li>Хотбар и полосы</li><li>Watermark</li><li>Module List</li><li>Better Near</li><li>Combat Timer</li><li>Teleport Timer</li><li>Keystrokes</li><li>Potions</li><li>Armor</li><li>Compass</li><li>Главное меню</li></ul>
+          </article>
+          <article class="cat">
+            <div class="cat-top"><h3>World</h3><span class="count">12</span></div>
+            <p>Небо, погода, время и камера. Меняется только у тебя на экране.</p>
+            <ul><li>Custom Sky</li><li>Weather</li><li>Time Changer</li><li>Ambience</li><li>Custom Fog</li><li>Zoom</li><li>Waypoints</li><li>Fullbright</li><li>Aspect Ratio</li><li>Static FOV</li></ul>
+          </article>
+          <article class="cat cat-accent">
+            <div class="cat-top"><h3>Helpers</h3><span class="count">7</span></div>
+            <p>Помощники для FunTime и похожих серверов: удобство без преимущества в бою.</p>
+            <ul><li>Auction Helper</li><li>Shulker Preview</li><li>Friends</li><li>Name Protect</li><li>Chat Alerts</li><li>Totem Counter</li><li>Durability Alert</li></ul>
+          </article>
+          <article class="cat">
+            <div class="cat-top"><h3>Controls</h3><span class="count">1</span></div>
+            <p>Кнопки на экране телефона. Раскладка, размер и набор кнопок меняются прямо в игре.</p>
+            <ul><li>Классика, PvP, Компакт</li><li>Режим для левши</li><li>Джойстик или крестовина</li></ul>
+          </article>
+        </div>
+        <div class="safe">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-3 8.3-7 10-4-1.7-7-5.4-7-10V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+          <div>
+            <b>Без читов</b>
+            <p>darkvisuals не видит сквозь стены, не бьёт за тебя и не меняет пакеты. Better Near показывает только ответ серверной команды /near, а таймеры читают сообщения сервера.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Models -->
+    <section id="models" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Custom Player</p>
+          <h2>Настоящие 3D-модели вместо скина</h2>
+          <p class="sub">Своя форма, анимации и свечение. Предметы в руках, бег и удары работают как обычно. Видишь только ты.</p>
+        </div>
+        <div class="models">
+          <figure class="model"><img src="img/model_robot.webp" alt="Модель Робот" loading="lazy" width="540" height="730"><figcaption><b>Робот</b><span>Светящийся визор, антенна, ядро на груди</span></figcaption></figure>
+          <figure class="model"><img src="img/model_fox.webp" alt="Модель Лис" loading="lazy" width="540" height="730"><figcaption><b>Лис</b><span>Уши подёргиваются, хвост виляет на бегу</span></figcaption></figure>
+          <figure class="model"><img src="img/model_demon.webp" alt="Модель Демон" loading="lazy" width="540" height="730"><figcaption><b>Демон</b><span>Рога, горящие руны и хвост</span></figcaption></figure>
+          <figure class="model"><img src="img/model_spirit.webp" alt="Модель Дух" loading="lazy" width="540" height="730"><figcaption><b>Дух</b><span>Парит в мантии, пустой капюшон</span></figcaption></figure>
+          <figure class="model"><img src="img/model_samurai.webp" alt="Модель Самурай" loading="lazy" width="540" height="730"><figcaption><b>Самурай</b><span>Лаковые доспехи и катана за спиной</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Launchers -->
+    <section id="launchers" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Лаунчеры</p>
+          <h2>Один клик до игры</h2>
+          <p class="sub">Лаунчер сам ставит Java, Fabric, моды оптимизации и darkvisuals. Тебе остаётся нажать «Играть».</p>
+        </div>
+        <div class="launcher-grid">
+          <div class="launcher-pc">
+            <div class="window">
+              <div class="window-bar"><i></i><i></i><i></i><span>darkvisuals для Windows</span></div>
+              <div class="window-body">
+                <img id="launcher-img" src="img/launcher_play.webp" alt="Лаунчер darkvisuals, вкладка «Играть»" loading="lazy" width="1120" height="680">
+              </div>
+            </div>
+            <div class="pills" role="tablist" aria-label="Экраны лаунчера">
+              <button role="tab" aria-selected="true" data-shot="play">Играть</button>
+              <button role="tab" aria-selected="false" data-shot="visuals">Визуалы</button>
+              <button role="tab" aria-selected="false" data-shot="controls">Управление</button>
+            </div>
+          </div>
+          <ul class="points">
+            <li><b>Оптимизация из коробки</b><span>Sodium, Lithium, FerriteCore, EntityCulling, ModernFix и Dynamic FPS. Настройки Java подбираются под твой ПК.</span></li>
+            <li><b>Визуалы до запуска</b><span>Включи нужное и выбери цвет темы прямо в лаунчере.</span></li>
+            <li><b>Android без компромиссов</b><span>Свой лаунчер с тёмным интерфейсом, Java 21 и рендерер для телефонов. Кнопки управления настраиваются в меню визуала.</span></li>
+            <li><b>Вход через Microsoft</b><span>Или просто по нику для серверов, где лицензия не нужна.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download -->
+    <section id="download" class="section">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="eyebrow">Скачать</p>
+          <h2>Выбери платформу</h2>
+          <p class="sub">Бесплатно. Версия 1.0.0 для Minecraft 1.21.4.</p>
+        </div>
+        <div class="downloads">
+          <article class="dl" id="dl-pc">
+            <div class="dl-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+            <h3>ПК, Windows</h3>
+            <p class="req">Windows 10 или 11, 64-бит · 4 ГБ ОЗУ</p>
+            <a class="btn btn-primary btn-wide" href="https://github.com/legdaygd0011/darkvisuals/releases/download/v1.0.0/darkvisuals-setup.exe" download>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              Установщик · 117 МБ
+            </a>
+            <a class="btn btn-ghost btn-wide" href="https://github.com/legdaygd0011/darkvisuals/releases/download/v1.0.0/darkvisuals-portable.exe" download>Без установки · 106 МБ</a>
+            <ol class="steps">
+              <li>Запусти файл и выбери папку.</li>
+              <li>Добавь аккаунт во вкладке «Аккаунт».</li>
+              <li>Нажми «Играть». Первый запуск скачает игру.</li>
+            </ol>
+          </article>
+          <article class="dl" id="dl-android">
+            <div class="dl-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg></div>
+            <h3>Телефон, Android</h3>
+            <p class="req">Android 8 и новее, 64-бит · от 4 ГБ ОЗУ</p>
+            <a class="btn btn-primary btn-wide" href="https://github.com/legdaygd0011/darkvisuals/releases/download/v1.0.0/darkvisuals.apk" download>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              APK · 137 МБ
+            </a>
+            <p class="dl-note">Разреши установку из этого источника, когда телефон спросит.</p>
+            <ol class="steps">
+              <li>Открой APK и установи.</li>
+              <li>Войди в аккаунт и нажми «Играть».</li>
+              <li>Первый запуск скачает Java и игру, лучше по Wi‑Fi.</li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <div class="wrap narrow">
+        <div class="section-head">
+          <p class="eyebrow">Вопросы</p>
+          <h2>Коротко о главном</h2>
+        </div>
+        <details class="qa" open>
+          <summary>Забанят ли на FunTime или ReallyWorld?</summary>
+          <p>darkvisuals меняет только то, что рисуется у тебя на экране. В нём нет функций, которые дают преимущество: ни X-Ray, ни ESP сквозь стены, ни автоматизации боя. Правила серверов меняются, поэтому перед игрой загляни в правила своего сервера.</p>
+        </details>
+        <details class="qa">
+          <summary>Как открыть меню визуала?</summary>
+          <p>На ПК клавишей <kbd>Right Shift</kbd>. На телефоне кнопкой «Визуал» вверху экрана. Клавишу можно поменять в меню.</p>
+        </details>
+        <details class="qa">
+          <summary>Нужна ли лицензия Minecraft?</summary>
+          <p>Для серверов с лицензией войди через Microsoft. Для серверов, где лицензия не нужна, можно играть по нику.</p>
+        </details>
+        <details class="qa">
+          <summary>Будет ли лагать?</summary>
+          <p>Лаунчер ставит Sodium и другие моды оптимизации и подбирает память. На телефоне по умолчанию включены лёгкие настройки графики.</p>
+        </details>
+        <details class="qa">
+          <summary>Где исходный код?</summary>
+          <p>Исходный код darkvisuals закрыт. Android-лаунчер работает на движке Amethyst (LGPL-3.0), его исходники открыты у авторов.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <a class="brand" href="#">
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5 8.6 8.6 0 1 0 20.5 14.6Z"/></svg>
+        darkvisuals
+      </a>
+      <p>Не связан с Mojang и Microsoft. Minecraft является товарным знаком Mojang AB.</p>
+      <p>Android-лаунчер основан на <a href="https://github.com/AngelAuraMC/Amethyst-Android" rel="noopener">Amethyst</a> (LGPL-3.0). Шрифт Geist, лицензия OFL.</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
