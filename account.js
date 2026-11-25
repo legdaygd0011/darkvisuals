@@ -86,6 +86,13 @@
     show('auth');
   });
 
+  // ------------------------------------------------------------------ shop
+  let shop = { price: '50', days: 30, buy_url: '', payments: false };
+  try {
+    const { data } = await sb.rpc('shop_info');
+    if (data) shop = data;
+  } catch { /* defaults */ }
+
   // ------------------------------------------------------------------ dashboard
   async function status() {
     const { data, error } = await sb.functions.invoke('license', { body: {} });
@@ -135,8 +142,38 @@
       pill.textContent = 'Нет подписки';
       $('sub-detail').textContent = st.until ? `закончилась ${fmtDate(st.until)}` : '';
     }
-    $('pay').textContent = active && !st.admin ? 'Продлить на 30 дней · 50 ₽' : 'Оплатить картой или СБП';
+    const price = String(shop.price || '50').replace(/\.00$/, '');
+    $('pay').hidden = !shop.payments || !!st.admin;
+    $('pay-fine').hidden = !shop.payments || !!st.admin;
+    $('pay').textContent = active ? `Продлить на ${shop.days} дней · ${price} ₽` : `Оплатить картой или СБП · ${price} ₽`;
+    const buy = $('buy-key');
+    buy.hidden = shop.payments || !shop.buy_url || !!st.admin;
+    if (shop.buy_url) buy.href = shop.buy_url;
+    buy.textContent = `Купить ключ · ${price} ₽`;
+    document.querySelector('.price b').textContent = `${price} ₽`;
+    document.querySelector('.price span').textContent = `за ${shop.days} дней`;
   }
+
+  $('redeem-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = $('redeem-msg');
+    const code = e.target.code.value.trim();
+    if (!code) { msg.textContent = 'Введи ключ'; return; }
+    $('redeem-btn').disabled = true;
+    try {
+      const { data, error } = await sb.rpc('redeem_key', { key_code: code });
+      if (error) throw error;
+      e.target.code.value = '';
+      msg.textContent = `Ключ активирован, подписка до ${fmtDate(data)}`;
+      paintSub({ active: true, until: data, admin: false });
+    } catch (ex) {
+      const m = String(ex.message || ex);
+      msg.textContent = /key_used/.test(m) ? 'Этот ключ уже использован'
+        : /key_not_found/.test(m) ? 'Такого ключа нет, проверь буквы' : 'Не получилось: ' + m;
+    } finally {
+      $('redeem-btn').disabled = false;
+    }
+  });
 
   async function loadHistory(uid) {
     const { data } = await sb.from('payments').select('amount, status, created_at, paid_at, days').eq('user_id', uid)
@@ -179,7 +216,64 @@
       $('s-revenue').textContent = rub(s.revenue);
     }
     loadUsers();
+    loadKeys();
+    $('buy-form').url.value = shop.buy_url || '';
   }
+
+  async function loadKeys() {
+    const { data } = await sb.rpc('admin_list_keys', { lim: 100 });
+    $('keys').innerHTML = (data || []).map((k) => `<tr data-code="${esc(k.code)}">
+        <td><code>${esc(k.code)}</code></td>
+        <td>${k.days}</td>
+        <td>${esc(k.note)}</td>
+        <td>${k.used_by_name ? `<span class="status-off">${esc(k.used_by_name)}, ${fmtDate(k.used_at)}</span>` : '<span class="status-on">свободен</span>'}</td>
+        <td class="right">${k.used_by_name ? '' : '<button class="mini" data-copy="1">Копировать</button> <button class="mini danger" data-del="1">Удалить</button>'}</td>
+      </tr>`).join('') || '<tr><td colspan="5" class="status-off">Ключей пока нет</td></tr>';
+  }
+
+  $('keys-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const n = parseInt(f.n.value, 10), days = parseInt(f.days.value, 10);
+    const msg = $('admin-msg');
+    if (!(n >= 1 && n <= 200 && days >= 1 && days <= 3650)) { msg.textContent = 'Ключей от 1 до 200, дней от 1 до 3650'; return; }
+    const { data, error } = await sb.rpc('admin_create_keys', { n, days, note: f.note.value.trim() });
+    if (error) { msg.textContent = 'Ошибка: ' + error.message; return; }
+    const codes = (data || []).map((r) => (typeof r === 'string' ? r : Object.values(r)[0]));
+    $('new-keys-list').textContent = codes.join('\n');
+    $('new-keys').hidden = false;
+    msg.textContent = `Создано ключей: ${codes.length} по ${days} дн.`;
+    loadKeys();
+  });
+
+  $('copy-keys').addEventListener('click', async () => {
+    await navigator.clipboard.writeText($('new-keys-list').textContent);
+    $('copy-keys').textContent = 'Скопировано';
+    setTimeout(() => { $('copy-keys').textContent = 'Скопировать все'; }, 1500);
+  });
+
+  $('keys').addEventListener('click', async (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    const code = b.closest('tr').dataset.code;
+    if (b.dataset.copy) {
+      await navigator.clipboard.writeText(code);
+      b.textContent = 'Скопирован';
+      return;
+    }
+    if (b.dataset.del && confirm(`Удалить ключ ${code}?`)) {
+      await sb.rpc('admin_delete_key', { key_code: code });
+      loadKeys();
+    }
+  });
+
+  $('buy-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = e.target.url.value.trim();
+    const { error } = await sb.rpc('admin_set_buy_url', { url });
+    $('admin-msg').textContent = error ? (/bad_url/.test(error.message) ? 'Ссылка должна начинаться с https://' : 'Ошибка: ' + error.message) : (url ? 'Ссылка сохранена, кнопка «Купить ключ» ведёт туда' : 'Ссылка убрана');
+    if (!error) shop.buy_url = url;
+  });
 
   async function loadUsers() {
     const { data, error } = await sb.rpc('admin_list_users', { q: $('q').value.trim(), lim: 100 });

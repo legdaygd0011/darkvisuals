@@ -89,3 +89,21 @@
   .dash-grid { grid-template-columns: 1fr; }
   .tiles { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* activation keys */
+.redeem { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+.redeem .field { margin: 0; }
+.redeem input { text-transform: uppercase; letter-spacing: 0.04em; }
+.redeem .btn { height: 46px; }
+.keys-admin { margin: 18px 0; }
+.keys-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.keys-head h3 { font-size: 18px; }
+.keys-form, .buy-form { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
+.keys-form .field, .buy-form .field { margin: 0; width: 110px; }
+.keys-form .field.grow, .buy-form .field.grow { flex: 1; min-width: 220px; width: auto; }
+.keys-form .btn, .buy-form .btn { height: 46px; }
+.buy-form { margin: 16px 0; }
+.new-keys { margin-top: 14px; padding: 14px; border-radius: 12px; background: var(--deep); border: 1px solid rgba(98, 214, 201, 0.3); display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
+.new-keys pre { margin: 0; font: 500 14px/1.7 ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--accent); white-space: pre-wrap; }
+.keys-table { min-width: 620px; }
+.keys-table code { font: 500 13px ui-monospace, "Cascadia Mono", Consolas, monospace; }

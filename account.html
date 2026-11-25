@@ -87,9 +87,18 @@
             <span class="muted" id="sub-detail"></span>
           </div>
           <div class="price"><b>50 ₽</b><span>за 30 дней</span></div>
-          <button class="btn btn-primary btn-wide" id="pay">Оплатить картой или СБП</button>
-          <p class="fine">Оплата на защищённой странице ЮKassa. Дни добавляются к оставшимся.</p>
+          <button class="btn btn-primary btn-wide" id="pay" hidden>Оплатить картой или СБП</button>
+          <a class="btn btn-primary btn-wide" id="buy-key" href="#" target="_blank" rel="noopener" hidden>Купить ключ</a>
+          <p class="fine" id="pay-fine" hidden>Оплата на защищённой странице ЮKassa. Дни добавляются к оставшимся.</p>
           <p class="form-error" id="pay-error" role="alert"></p>
+          <form class="redeem" id="redeem-form" novalidate>
+            <label class="field">
+              <span>Ключ активации</span>
+              <input name="code" placeholder="DV-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" maxlength="24">
+            </label>
+            <button class="btn btn-quiet" type="submit" id="redeem-btn">Активировать</button>
+          </form>
+          <p class="fine" id="redeem-msg" role="status"></p>
         </article>
         <article class="card">
           <p class="eyebrow" style="margin:0 0 12px">Как играть</p>
@@ -115,6 +124,32 @@
           <div class="tile"><b id="s-active">0</b><span>с подпиской</span></div>
           <div class="tile"><b id="s-payments">0</b><span>оплат</span></div>
           <div class="tile"><b id="s-revenue">0 ₽</b><span>выручка</span></div>
+        </div>
+        <div class="keys-admin card">
+          <div class="keys-head">
+            <h3>Ключи активации</h3>
+            <span class="fine" style="margin:0">Продавай где угодно: игрок вводит ключ в лаунчере или здесь</span>
+          </div>
+          <form class="keys-form" id="keys-form" novalidate>
+            <label class="field"><span>Сколько</span><input name="n" type="number" min="1" max="200" value="5"></label>
+            <label class="field"><span>Дней</span><input name="days" type="number" min="1" max="3650" value="30"></label>
+            <label class="field grow"><span>Заметка</span><input name="note" placeholder="Например: FunPay, раздача" maxlength="60"></label>
+            <button class="btn btn-primary" type="submit">Создать</button>
+          </form>
+          <div class="new-keys" id="new-keys" hidden>
+            <pre id="new-keys-list"></pre>
+            <button class="mini" id="copy-keys">Скопировать все</button>
+          </div>
+          <form class="buy-form" id="buy-form" novalidate>
+            <label class="field grow"><span>Где купить ключ (ссылка для кнопки «Купить»)</span><input name="url" placeholder="https://funpay.com/lots/offer?id=…" maxlength="300"></label>
+            <button class="btn btn-quiet" type="submit">Сохранить</button>
+          </form>
+          <div class="table-wrap">
+            <table class="users keys-table">
+              <thead><tr><th>Ключ</th><th>Дней</th><th>Заметка</th><th>Статус</th><th class="right"></th></tr></thead>
+              <tbody id="keys"></tbody>
+            </table>
+          </div>
         </div>
         <div class="admin-tools">
           <input id="q" class="search" placeholder="Поиск по нику или почте" aria-label="Поиск пользователей">
