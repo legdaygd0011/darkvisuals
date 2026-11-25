@@ -342,3 +342,22 @@ h2 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.1; }
   .cmp-label.right { right: 10px; }
   .dl { padding: 22px; }
 }
+
+/* buy on FunPay */
+.btn-buy { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 30px -10px rgba(98, 214, 201, 0.6); }
+.btn-buy:hover { background: #7fe3d8; box-shadow: 0 0 0 6px rgba(98, 214, 201, 0.14); }
+.buy-card {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: center;
+  max-width: 900px; margin: 0 auto 16px; padding: 22px 26px; border-radius: 22px;
+  background: linear-gradient(120deg, rgba(98, 214, 201, 0.12), var(--page) 55%); border: 1px solid rgba(98, 214, 201, 0.3);
+}
+.buy-text b { display: block; font-weight: 500; font-size: 18px; }
+.buy-text span { display: block; color: var(--text-2); font-size: 14px; margin-top: 4px; }
+.buy-price { text-align: right; }
+.buy-price b { display: block; font-size: 30px; font-weight: 500; letter-spacing: -0.02em; }
+.buy-price span { color: var(--muted); font-size: 13px; }
+.qa p a { color: var(--accent); }
+@media (max-width: 760px) {
+  .buy-card { grid-template-columns: 1fr auto; }
+  .buy-card .btn { grid-column: 1 / -1; }
+}

@@ -117,3 +117,17 @@
     items.forEach((el) => io.observe(el));
   }
 })();
+
+// Buy links follow the lot set in the admin panel
+(async () => {
+  try {
+    const cfg = await (await fetch('config.json', { cache: 'no-store' })).json();
+    const res = await fetch(cfg.url + '/rest/v1/rpc/shop_info', {
+      method: 'POST',
+      headers: { apikey: cfg.anonKey, Authorization: 'Bearer ' + cfg.anonKey, 'Content-Type': 'application/json' },
+      body: '{}',
+    });
+    const shop = await res.json();
+    if (shop && shop.buy_url) document.querySelectorAll('.js-buy').forEach((a) => { a.href = shop.buy_url; });
+  } catch { /* keep the built-in link */ }
+})();
